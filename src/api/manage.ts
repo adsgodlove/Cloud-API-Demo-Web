@@ -186,3 +186,18 @@ export const changeFirmareStatus = async function (workspaceId: string, firmware
   const result = await request.put(url, param)
   return result.data
 }
+
+/**
+ * 获取token
+ */
+export interface AgoraToken {
+  app_id: string,
+  token: string,
+  channel_name: string,
+}
+const AGORA_PREFIX = '/media/api/v1/agora'
+export const getAgoraToken = async function(channelName: string, uid: number): Promise<AgoraToken> {
+  const url = `${AGORA_PREFIX}/get-token?channelName=${channelName}&uid=${uid}`
+  const result = await request.get(url)
+  return result.data
+}

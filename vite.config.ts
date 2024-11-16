@@ -37,12 +37,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => defineConfig(
     }),
     PkgConfig(),
     OptimizationPersist()
-    // [svgBuilder('./src/assets/icons/')] // All svg under src/icons/svg/ have been imported here, no need to import separately
+    // [svgBuilder('./src/assets/icons/')] // src/icons/svg/ 下的所有 SVG 已经在此处导入，无需单独导入。
   ],
   server: {
     open: true,
     host: '0.0.0.0',
-    port: 8080
+    port: 8081
   },
   envDir: './env',
   resolve: {
@@ -50,8 +50,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => defineConfig(
       // https://github.com/vitejs/vite/issues/279#issuecomment-635646269
       find: '/@',
       replacement: path.resolve(__dirname, './src'),
-    }
-    ]
+    }]
   },
   css: {
     preprocessorOptions: {

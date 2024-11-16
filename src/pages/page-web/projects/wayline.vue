@@ -4,7 +4,7 @@
     <div style="height: 50px; line-height: 50px; border-bottom: 1px solid #4f4f4f; font-weight: 450;">
       <a-row>
         <a-col :span="1"></a-col>
-        <a-col :span="15">Flight Route Library</a-col>
+        <a-col :span="15">航线库</a-col>
         <a-col :span="8" v-if="importVisible" class="flex-row flex-justify-end flex-align-center">
           <a-upload
             name="file"
@@ -40,10 +40,10 @@
                   <template #overlay>
                     <a-menu theme="dark" class="more" style="background: #3c3c3c;">
                       <a-menu-item @click="downloadWayline(wayline.id, wayline.name)">
-                        <span>Download</span>
+                        <span>下载</span>
                       </a-menu-item>
                       <a-menu-item @click="showWaylineTip(wayline.id)">
-                        <span>Delete</span>
+                        <span>删除</span>
                       </a-menu-item>
                     </a-menu>
                   </template>
@@ -54,7 +54,7 @@
               <span><RocketOutlined /></span>
               <span class="ml5">{{ DEVICE_NAME[wayline.drone_model_key] }}</span>
               <span class="ml10"><CameraFilled style="border-top: 1px solid; padding-top: -3px;" /></span>
-              <span class="ml5" v-for="payload in wayline.payload_model_keys" :key="payload.id">
+              <span class="ml5" v-for="payload in wayline.payload_model_keys" :key="payload">
                 {{ DEVICE_NAME[payload] }}
               </span>
             </div>
@@ -217,12 +217,12 @@ function beforeUpload (file: FileItem) {
   return true
 }
 const uploadFile = async () => {
-  fileList.value.forEach(async (file: FileItem) => {
+  fileList.value.forEach(async (file: any) => {
     const fileData = new FormData()
     fileData.append('file', file, file.name)
     await importKmzFile(workspaceId, fileData).then((res) => {
       if (res.code === 0) {
-        message.success(`${file.name} file uploaded successfully`)
+        message.success(`${file.name} 文件上传成功`)
         canRefresh.value = true
         pagination.total = 0
         pagination.page = 1

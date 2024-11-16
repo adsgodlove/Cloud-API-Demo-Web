@@ -3,23 +3,25 @@
   <div class="ml20 mt20 mr20 flex-row flex-align-center flex-justify-between">
     <div class="flex-row">
       <a-button type="primary" @click="sVisible = true">
-        Click to Upload
+        点击上传
       </a-button>
       <a-modal :visible="sVisible"
-         title="Import Firmware File"
+         title="上传固件"
          :closable="false"
          @cancel="onCancel"
          @ok="uploadFile"
+         okText="确定"
+         cancelText="取消"
          centered>
          <a-form :rules="rules" ref="formRef" :model="uploadParam" :label-col="{ span: 6 }">
-          <a-form-item name="status" label="Avaliable" required>
+          <a-form-item name="status" label="可用" required>
             <a-switch v-model:checked="uploadParam.status" />
           </a-form-item>
-          <a-form-item name="device_name" label="Device Name" required>
+          <a-form-item name="device_name" label="设备名称" required>
             <a-select
               style="width: 220px"
               mode="multiple"
-              placeholder="can choose multiple"
+              placeholder="可以多选"
               v-model:value="uploadParam.device_name">
               <a-select-option
                 v-for="k in DeviceNameEnum"
@@ -30,10 +32,10 @@
               </a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item name="release_note" label="Release Note" required>
+          <a-form-item name="release_note" label="发布说明" required>
             <a-textarea v-model:value="uploadParam.release_note" showCount :maxlength="300" />
           </a-form-item>
-          <a-form-item label="File" required>
+          <a-form-item label="固件" required>
             <a-upload
               :multiple="false"
               :before-upload="beforeUpload"
@@ -43,7 +45,7 @@
              >
               <a-button type="primary">
                 <UploadOutlined />
-                Import Firmware File
+                上传固件
               </a-button>
             </a-upload>
           </a-form-item>
@@ -83,7 +85,7 @@
         <a-input-search
           :enter-button="true"
           v-model:value="param.product_version"
-          placeholder="input search verison"
+          placeholder="输入搜索版本"
           style="width: 250px"
           @search="getAllFirmwares(pageParam)"/>
       </div>
@@ -91,7 +93,7 @@
   </div>
   <div class="table flex-display flex-column">
     <a-table :columns="columns" :data-source="data.firmware" :pagination="paginationProp" @change="refreshData" row-key="firmware_id"
-     :rowClassName="(record, index) => ((index % 2) === 0 ? 'table-striped' : null)" :scroll="{ x: '100%', y: 600 }">
+    :rowClassName="(record, index) => ((index % 2) === 0 ? 'table-striped' : null)" :scroll="{ x: '100%', y: 600 }">
       <template #device_name="{ record }">
         <div v-for="text in record.device_name" :key="text">
           {{ text }}
@@ -130,14 +132,14 @@ interface FirmwareData {
   firmware: Firmware[]
 }
 const columns = [
-  { title: 'Model', dataIndex: 'device_name', width: 120, ellipsis: true, className: 'titleStyle', slots: { customRender: 'device_name' } },
-  { title: 'File Name', dataIndex: 'file_name', width: 220, ellipsis: true, className: 'titleStyle', slots: { customRender: 'file_name' } },
-  { title: 'Firmware Version', dataIndex: 'product_version', width: 180, className: 'titleStyle' },
-  { title: 'File Size', dataIndex: 'file_size', width: 150, className: 'titleStyle', slots: { customRender: 'file_size' } },
-  { title: 'Creator', dataIndex: 'username', width: 100, className: 'titleStyle' },
-  { title: 'Release Date', dataIndex: 'released_time', width: 160, sorter: (a: Firmware, b: Firmware) => a.released_time.localeCompare(b.released_time), className: 'titleStyle' },
-  { title: 'Release Note', dataIndex: 'release_note', width: 300, ellipsis: true, className: 'titleStyle', slots: { customRender: 'release_note' } },
-  { title: 'Status', dataIndex: 'firmware_status', width: 100, className: 'titleStyle', slots: { customRender: 'firmware_status' } },
+  { title: '设备', dataIndex: 'device_name', width: 120, ellipsis: true, className: 'titleStyle', slots: { customRender: 'device_name' } },
+  { title: '固件名称', dataIndex: 'file_name', width: 220, ellipsis: true, className: 'titleStyle', slots: { customRender: 'file_name' } },
+  { title: '固件版本', dataIndex: 'product_version', width: 180, className: 'titleStyle' },
+  { title: '固件大小', dataIndex: 'file_size', width: 150, className: 'titleStyle', slots: { customRender: 'file_size' } },
+  { title: '创建人', dataIndex: 'username', width: 100, className: 'titleStyle' },
+  { title: '发布日期', dataIndex: 'released_time', width: 160, sorter: (a: Firmware, b: Firmware) => a.released_time.localeCompare(b.released_time), className: 'titleStyle' },
+  { title: '发布说明', dataIndex: 'release_note', width: 300, ellipsis: true, className: 'titleStyle', slots: { customRender: 'release_note' } },
+  { title: '状态', dataIndex: 'firmware_status', width: 100, className: 'titleStyle', slots: { customRender: 'firmware_status' } },
 ]
 
 const data = reactive<FirmwareData>({
@@ -153,7 +155,7 @@ const paginationProp = reactive({
   total: 0
 })
 
-const deviceNameList = ref<any[]>([{ label: 'All', value: '' }])
+const deviceNameList = ref<any[]>([{ label: '全部', value: '' }])
 
 type Pagination = TableState['pagination']
 
@@ -202,8 +204,8 @@ const uploadParam = reactive<FirmwareUploadParam>({
 
 const rules = {
   status: [{ required: true }],
-  release_note: [{ required: true, message: 'Please input release note.' }],
-  device_name: [{ required: true, message: 'Please select which models this firmware belongs to.' }]
+  release_note: [{ required: true, message: '请输入发布说明。' }],
+  device_name: [{ required: true, message: '请选择此固件所属的型号。' }]
 }
 interface FileItem {
   uid: string;
@@ -221,7 +223,7 @@ const fileList = ref<FileItem[]>([])
 
 function beforeUpload (file: FileItem) {
   if (!file.name || !file.name?.endsWith('.zip')) {
-    message.error('Format error. Please select zip file.')
+    message.error('格式错误。请选择 ZIP 文件。')
     return false
   }
   fileList.value = [file]
@@ -240,7 +242,7 @@ function onCancel () {
 
 const uploadFile = async () => {
   if (fileList.value.length === 0) {
-    message.error('Please select at least one file.')
+    message.error('请至少选择一个文件。')
   }
   let uploading: string
   formRef.value.validate().then(async () => {
@@ -262,20 +264,20 @@ const uploadFile = async () => {
     notification.open({
       key: uploading,
       message: `Uploading  ${moment().format()}`,
-      description: `[${file.name}] is uploading... `,
+      description: `[${file.name}] 正在上传... `,
       duration: null
     })
     importFirmareFile(workspaceId, fileData).then((res) => {
       if (res.code === 0) {
         notification.success({
           message: `Uploaded  ${moment().format()}`,
-          description: `[${file.name}] file uploaded successfully. Duration: ${moment.duration(new Date().getTime() - timestamp).asSeconds()}`,
+          description: `[${file.name}]文件上传成功。耗时：${moment.duration(new Date().getTime() - timestamp).asSeconds()}秒`,
           duration: null
         })
         getAllFirmwares(pageParam)
       } else {
         notification.error({
-          message: `Failed to upload [${file.name}]. Check and try again.`,
+          message: `上传 [${file.name}] 失败。请检查后重试。`,
           description: `Error message: ${res.message} ${moment().format()}`,
           style: { color: commonColor.FAIL },
           duration: null,

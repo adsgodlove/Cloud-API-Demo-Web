@@ -1,5 +1,5 @@
 <template>
-  <div class="header">Task Plan Library</div>
+  <div class="header">任务计划库</div>
   <div class="plan-panel-wrapper">
     <a-table class="plan-table" :columns="columns" :data-source="plansData.data" row-key="job_id"
       :pagination="paginationProp" :scroll="{ x: '100%', y: 600 }" @change="refreshData">
@@ -42,7 +42,7 @@
       <template #lostAction="{ record }">
         <div>{{ formatLostAction(record) }}</div>
       </template>
-     <!-- 媒体上传状态 -->
+    <!-- 媒体上传状态 -->
       <template #media_upload="{ record }">
         <div>
           <div class="flex-display flex-align-center">
@@ -65,27 +65,27 @@
         <div class="action-area">
           <a-popconfirm
             v-if="record.status === TaskStatus.Wait"
-            title="Are you sure you want to delete flight task?"
-            ok-text="Yes"
-            cancel-text="No"
+            title="您确定要删除飞行任务吗？"
+            ok-text="是"
+            cancel-text="否"
             @confirm="onDeleteTask(record.job_id)"
           >
-            <a-button type="primary" size="small">Delete</a-button>
+            <a-button type="primary" size="small">删除</a-button>
           </a-popconfirm>
           <a-popconfirm
             v-if="record.status === TaskStatus.Carrying"
-            title="Are you sure you want to suspend?"
-            ok-text="Yes"
-            cancel-text="No"
+            title="你确定要暂停吗？"
+            ok-text="是"
+            cancel-text="否"
             @confirm="onSuspendTask(record.job_id)"
           >
             <a-button type="primary" size="small">Suspend</a-button>
           </a-popconfirm>
           <a-popconfirm
             v-if="record.status === TaskStatus.Paused"
-            title="Are you sure you want to resume?"
-            ok-text="Yes"
-            cancel-text="No"
+            title="你确定要恢复吗？"
+            ok-text="是"
+            cancel-text="否"
             @confirm="onResumeTask(record.job_id)"
           >
             <a-button type="primary" size="small">Resume</a-button>
@@ -131,63 +131,63 @@ const paginationProp = reactive({
 
 const columns = [
   {
-    title: 'Planned/Actual Time',
+    title: '计划/实际时间',
     dataIndex: 'duration',
     width: 200,
     slots: { customRender: 'duration' },
   },
   {
-    title: 'Status',
+    title: '状态',
     key: 'status',
     width: 150,
     slots: { customRender: 'status' }
   },
   {
-    title: 'Plan Name',
+    title: '计划名称',
     dataIndex: 'job_name',
     width: 100,
   },
   {
-    title: 'Type',
+    title: '类型',
     dataIndex: 'taskType',
     width: 100,
     slots: { customRender: 'taskType' },
   },
   {
-    title: 'Flight Route Name',
+    title: '航线名称',
     dataIndex: 'file_name',
     width: 100,
   },
   {
-    title: 'Dock Name',
+    title: '机场名称',
     dataIndex: 'dock_name',
     width: 100,
     ellipsis: true
   },
   {
-    title: 'RTH Altitude Relative to Dock (m)',
+    title: '相对返航高度(米)',
     dataIndex: 'rth_altitude',
     width: 120,
   },
   {
-    title: 'Lost Action',
+    title: '最后操作',
     dataIndex: 'out_of_control_action',
     width: 120,
     slots: { customRender: 'lostAction' },
   },
   {
-    title: 'Creator',
+    title: '创建人',
     dataIndex: 'username',
     width: 120,
   },
   {
-    title: 'Media File Upload',
+    title: '媒体文件上传',
     key: 'media_upload',
     width: 160,
     slots: { customRender: 'media_upload' }
   },
   {
-    title: 'Action',
+    title: '操作',
     width: 120,
     slots: { customRender: 'action' }
   }
@@ -285,7 +285,7 @@ async function onDeleteTask (jobId: string) {
     job_id: jobId
   })
   if (code === 0) {
-    message.success('Deleted successfully')
+    message.success('删除成功')
     getPlans()
   }
 }
@@ -297,7 +297,7 @@ async function onSuspendTask (jobId: string) {
     status: UpdateTaskStatus.Suspend
   })
   if (code === 0) {
-    message.success('Suspended successfully')
+    message.success('已暂停')
     getPlans()
   }
 }
@@ -309,7 +309,7 @@ async function onResumeTask (jobId: string) {
     status: UpdateTaskStatus.Resume
   })
   if (code === 0) {
-    message.success('Resumed successfully')
+    message.success('已恢复')
     getPlans()
   }
 }
@@ -318,7 +318,7 @@ async function onResumeTask (jobId: string) {
 async function onUploadMediaFileNow (jobId: string) {
   const { code } = await uploadMediaFileNow(workspaceId, jobId)
   if (code === 0) {
-    message.success('Upload Media File successfully')
+    message.success('上传媒体文件成功')
     getPlans()
   }
 }

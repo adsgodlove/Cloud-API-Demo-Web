@@ -19,3 +19,25 @@ Cloud API 1.10.0 was released on 7 April 2024. For more information, please visi
 ## License
 
 Cloud API is MIT-licensed. Please refer to the LICENSE file for more information.
+
+```
+{
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Effect": "Allow",
+      "Principal": {
+        "RAM": [
+          "acs:ram::1117066546770836:root"
+        ]
+      }
+    }
+  ],
+  "Version": "1"
+}
+```
+
+channel=chenga&sn=7CTDM1R00B40GS&token=007eJxTYPAo8u+dfin1viWbvO8H/cTMS/E2l230LKPeuHzLeFCf2qvAkGRgaJpsaGmWYmRmYpJqmJZokGqRammaYmFgYWxqamF+yyYirSGQkWHP4xNMjAwQCOKzMSRnpOalJzIwAABGvR/B&uid=84556290
+
+channel=chenga&sn=7CTDM1R00B40GS&token=007eJxTYPAo8u+dfin1viWbvO8H/cTMS/E2l230LKPeuHzLeFCf2qvAkGRgaJpsaGmWYmRmYpJqmJZokGqRammaYmFgYWxqamF+yyYirSGQkWHP4xNMjAwQCOKzMSRnpOalJzIwAABGvR/B&uid=123456
+

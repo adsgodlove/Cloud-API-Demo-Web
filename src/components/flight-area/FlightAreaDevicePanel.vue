@@ -1,6 +1,6 @@
 <template>
   <div class="flight-area-device-panel">
-    <Title title="Choose Synchronous Devices">
+    <Title title="选择同步设备">
       <div style="position: absolute; right: 10px;">
         <a style="color: white;" @click="closePanel"><CloseOutlined /></a>
       </div>
@@ -18,7 +18,7 @@
               </div>
               <div class="ml10 mr10 pr5 pl5 flex-align-center flex-row flex-justify-between" style="background: #595959;">
                 <div>
-                  Custom Flight Area
+                  自定义飞行区域
                 </div>
                 <div>
                   <div v-if="!dock.status">
@@ -52,9 +52,9 @@
         </div>
         <DividerLine style="position: absolute; bottom: 68px;" />
         <div class="flex-row flex-justify-between footer">
-          <a-button class="mr10" @click="closePanel">Cancel
+          <a-button class="mr10" @click="closePanel">取消
           </a-button>
-          <a-button type="primary" :disabled="confirmDisabled" @click="syncDeviceFlightArea">Sync
+          <a-button type="primary" :disabled="confirmDisabled" @click="syncDeviceFlightArea">同步
           </a-button>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { message } from 'ant-design-vue'
 import dockIcon from '/@/assets/icons/dock.png'
 import rcIcon from '/@/assets/icons/rc.png'
 import droneIcon from '/@/assets/icons/drone.png'
+import { CURRENT_CONFIG as config } from '/@/api/http/config'
 
 export function deviceTsaUpdate () {
   const root = getRoot()
@@ -46,8 +47,9 @@ export function deviceTsaUpdate () {
       return
     }
     AMap = root.$aMap
+    // 104.57213, 30.716585
     markers[sn] = new AMap.Marker({
-      position: new AMap.LngLat(lng || 113.943225499, lat || 22.577673716),
+      position: new AMap.LngLat(lng || config.lng, lat || config.lat),
       icon: initIcon(type),
       title: name,
       anchor: 'top-center',

@@ -1,6 +1,6 @@
 <template>
 <div class="drone-control-info-wrap">
-  <a-textarea v-model:value="info" placeholder="drc info" :rows="5" disabled/>
+  <a-textarea v-model:value="info" placeholder="DRC信息" :rows="5" disabled/>
 </div>
 </template>
 

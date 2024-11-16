@@ -2,10 +2,10 @@
 <template>
   <a-menu v-model:selectedKeys="current" mode="horizontal" @select="select">
     <a-menu-item :key="EDeviceTypeName.Aircraft" class="ml20">
-      Aircraft
+      无人机
     </a-menu-item>
     <a-menu-item :key="EDeviceTypeName.Dock">
-      Dock
+      机场
     </a-menu-item>
   </a-menu>
   <div class="device-table-wrap table flex-display flex-column">
@@ -37,7 +37,7 @@
           <DeviceFirmwareUpgrade :device="record"
                                   class="table-flex-col"
                                   @device-upgrade="onDeviceUpgrade"
-                                 />
+                                />
         </span>
         <span v-else>
           {{ record.firmware_version }}
@@ -47,11 +47,11 @@
       <template #status="{ text }">
         <span v-if="text" class="flex-row flex-align-center">
             <span class="mr5" style="width: 12px; height: 12px; border-radius: 50%; background-color: green;" />
-            <span>Online</span>
+            <span>在线</span>
         </span>
         <span class="flex-row flex-align-center" v-else>
             <span class="mr5" style="width: 12px; height: 12px; border-radius: 50%; background-color: red;" />
-            <span>Offline</span>
+            <span>离线</span>
         </span>
       </template>
       <!-- 操作 -->
@@ -59,25 +59,26 @@
         <div class="editable-row-operations">
           <!-- 编辑态操作 -->
           <div v-if="editableData[record.device_sn]">
-            <a-tooltip title="Confirm changes">
+            <a-tooltip title="确认更改">
               <span @click="save(record)" style="color: #28d445;"><CheckOutlined /></span>
             </a-tooltip>
-            <a-tooltip title="Modification canceled">
+            <a-tooltip title="取消修改">
               <span @click="() => delete editableData[record.device_sn]" style="color: #e70102;"><CloseOutlined /></span>
             </a-tooltip>
           </div>
+
           <!-- 非编辑态操作 -->
           <div v-else class="flex-align-center flex-row" style="color: #2d8cf0">
             <a-tooltip v-if="current.indexOf(EDeviceTypeName.Dock) !== -1" title="设备日志">
               <CloudServerOutlined @click="showDeviceLogUploadRecord(record)"/>
             </a-tooltip>
-            <a-tooltip v-if="current.indexOf(EDeviceTypeName.Dock) !== -1" title="Hms Info">
+            <a-tooltip v-if="current.indexOf(EDeviceTypeName.Dock) !== -1" title="HMS信息">
               <FileSearchOutlined @click="showHms(record)"/>
             </a-tooltip>
-            <a-tooltip title="Edit">
+            <a-tooltip title="编辑">
               <EditOutlined @click="edit(record)"/>
             </a-tooltip>
-            <a-tooltip title="Delete">
+            <a-tooltip title="删除">
               <DeleteOutlined @click="() => { deleteTip = true, deleteSn = record.device_sn }"/>
             </a-tooltip>
           </div>
@@ -139,10 +140,10 @@ const loading = ref(true)
 const deleteTip = ref<boolean>(false)
 const deleteSn = ref<string>()
 const columns: ColumnProps[] = [
-  { title: 'Model', dataIndex: 'device_name', width: 100, className: 'titleStyle' },
-  { title: 'SN', dataIndex: 'device_sn', width: 100, className: 'titleStyle', ellipsis: true, slots: { customRender: 'sn' } },
+  { title: '设备', dataIndex: 'device_name', width: 100, className: 'titleStyle' },
+  { title: '序列号(SN)', dataIndex: 'device_sn', width: 100, className: 'titleStyle', ellipsis: true, slots: { customRender: 'sn' } },
   {
-    title: 'Name',
+    title: '名称',
     dataIndex: 'nickname',
     width: 100,
     sorter: (a: Device, b: Device) => a.nickname.localeCompare(b.nickname),
@@ -150,10 +151,10 @@ const columns: ColumnProps[] = [
     ellipsis: true,
     slots: { customRender: 'nickname' }
   },
-  { title: 'Firmware Version', dataIndex: 'firmware_version', width: 150, className: 'titleStyle', slots: { customRender: 'firmware_version' } },
-  { title: 'Status', dataIndex: 'status', width: 100, className: 'titleStyle', slots: { customRender: 'status' } },
+  { title: '固件版本', dataIndex: 'firmware_version', width: 150, className: 'titleStyle', slots: { customRender: 'firmware_version' } },
+  { title: '状态', dataIndex: 'status', width: 100, className: 'titleStyle', slots: { customRender: 'status' } },
   {
-    title: 'Workspace',
+    title: '工作区',
     dataIndex: 'workspace_name',
     width: 100,
     className: 'titleStyle',
@@ -172,10 +173,10 @@ const columns: ColumnProps[] = [
       return obj
     }
   },
-  { title: 'Joined', dataIndex: 'bound_time', width: 150, sorter: (a: Device, b: Device) => a.bound_time.localeCompare(b.bound_time), className: 'titleStyle' },
-  { title: 'Last Online', dataIndex: 'login_time', width: 150, sorter: (a: Device, b: Device) => a.login_time.localeCompare(b.login_time), className: 'titleStyle' },
+  { title: '创建时间', dataIndex: 'bound_time', width: 150, sorter: (a: Device, b: Device) => a.bound_time.localeCompare(b.bound_time), className: 'titleStyle' },
+  { title: '最后在线时间', dataIndex: 'login_time', width: 150, sorter: (a: Device, b: Device) => a.login_time.localeCompare(b.login_time), className: 'titleStyle' },
   {
-    title: 'Actions',
+    title: '操作',
     dataIndex: 'actions',
     width: 100,
     className: 'titleStyle',

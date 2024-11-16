@@ -164,19 +164,19 @@
             </a-row>
             <a-row>
               <a-col span="12">
-                <a-tooltip title="Accumulated Running Time">
+                <a-tooltip title="累计运行时间">
                   <span><HistoryOutlined /></span>
                   <span class="ml10">
-                    <span v-if="deviceInfo.dock.work_osd?.acc_time >= 2592000"> {{ Math.floor(deviceInfo.dock.work_osd?.acc_time / 2592000) }}m </span>
-                    <span v-if="(deviceInfo.dock.work_osd?.acc_time % 2592000) >= 86400"> {{ Math.floor((deviceInfo.dock.work_osd?.acc_time % 2592000) / 86400) }}d </span>
-                    <span v-if="(deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400) >= 3600"> {{ Math.floor((deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400) / 3600) }}h </span>
-                    <span v-if="(deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400 % 3600) >= 60"> {{ Math.floor((deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400 % 3600) / 60) }}min </span>
-                    <span>{{ Math.floor(deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400 % 3600 % 60) }} s</span>
+                    <span v-if="deviceInfo.dock.work_osd?.acc_time >= 2592000"> {{ Math.floor(deviceInfo.dock.work_osd?.acc_time / 2592000) }}月 </span>
+                    <span v-if="(deviceInfo.dock.work_osd?.acc_time % 2592000) >= 86400"> {{ Math.floor((deviceInfo.dock.work_osd?.acc_time % 2592000) / 86400) }}天 </span>
+                    <span v-if="(deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400) >= 3600"> {{ Math.floor((deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400) / 3600) }}时 </span>
+                    <span v-if="(deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400 % 3600) >= 60"> {{ Math.floor((deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400 % 3600) / 60) }}分 </span>
+                    <span>{{ Math.floor(deviceInfo.dock.work_osd?.acc_time % 2592000 % 86400 % 3600 % 60) }} 秒</span>
                   </span>
                 </a-tooltip>
               </a-col>
               <a-col span="12">
-                <a-tooltip title="Activation time">
+                <a-tooltip title="激活时间">
                   <span><FieldTimeOutlined /></span>
                   <span class="ml10">{{ new Date((deviceInfo.dock.work_osd?.activation_time ?? 0) * 1000).toLocaleString() }}
                   </span>
@@ -185,7 +185,7 @@
             </a-row>
             <a-row>
               <a-col span="6">
-                <a-tooltip title="Network State">
+                <a-tooltip title="网络状态">
                   <span :style="qualityStyle">
                     <span v-if="deviceInfo.dock.basic_osd?.network_state?.type === NetworkStateTypeEnum.FOUR_G"><SignalFilled /></span>
                     <span v-else><GlobalOutlined /></span>
@@ -194,13 +194,13 @@
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="The total number of times the dock has performed missions.">
+                <a-tooltip title="机场执行任务的总次数。">
                   <span><CarryOutOutlined /></span>
                   <span class="ml10" >{{ deviceInfo.dock.work_osd?.job_number }} </span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Media File Remain Upload">
+                <a-tooltip title="待上传文件数量">
                   <span><CloudUploadOutlined class="fz14"/></span>
                   <span class="ml10">{{ deviceInfo.dock.link_osd?.media_file_detail?.remain_upload }}</span>
                 </a-tooltip>
@@ -208,8 +208,8 @@
               <a-col span="6">
                 <a-tooltip>
                   <template #title>
-                    <p>total: {{ deviceInfo.dock.basic_osd?.storage?.total }}</p>
-                    <p>used: {{ deviceInfo.dock.basic_osd?.storage?.used  }}</p>
+                    <p>总大小: {{ deviceInfo.dock.basic_osd?.storage?.total }}</p>
+                    <p>已使用: {{ deviceInfo.dock.basic_osd?.storage?.used  }}</p>
                   </template>
                   <span><FolderOpenOutlined /></span>
                   <span class="ml10" v-if="deviceInfo.dock.basic_osd?.storage?.total > 0">
@@ -221,25 +221,25 @@
             </a-row>
             <a-row>
               <a-col span="6">
-                <a-tooltip title="Wind Speed">
+                <a-tooltip title="风速">
                   <span>W.S</span>
                   <span class="ml10">{{ (deviceInfo.dock.basic_osd?.wind_speed ?? str) + ' m/s'}}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Rainfall">
+                <a-tooltip title="降雨量">
                   <span>🌧</span>
                   <span class="ml10">{{ RainfallEnum[deviceInfo.dock.basic_osd?.rainfall] }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Environment Temperature">
+                <a-tooltip title="环境温度">
                   <span>°C</span>
                   <span class="ml10">{{ deviceInfo.dock.basic_osd?.environment_temperature }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Dock Temperature">
+                <a-tooltip title="机场温度">
                   <span>°C</span>
                   <span class="ml10">{{ deviceInfo.dock.basic_osd?.temperature }}</span>
                 </a-tooltip>
@@ -247,34 +247,34 @@
             </a-row>
             <a-row>
               <a-col span="6">
-                <a-tooltip title="Dock Humidity">
+                <a-tooltip title="机场湿度">
                   <span>💦</span>
                   <span class="ml10">{{ deviceInfo.dock.basic_osd?.humidity }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Working Voltage">
+                <a-tooltip title="工作电压">
                   <span style="border: 1px solid; border-radius: 50%; width: 18px; height: 18px; line-height: 16px; text-align: center; float: left;">V</span>
                   <span class="ml10">{{ (deviceInfo.dock.work_osd?.working_voltage ?? str) + ' mV' }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Working Current">
+                <a-tooltip title="工作电流">
                   <span style="border: 1px solid; border-radius: 50%; width: 18px; height: 18px; line-height: 15px; text-align: center; float: left;" >A</span>
                   <span class="ml10">{{ (deviceInfo.dock.work_osd?.working_current ?? str) + ' mA' }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Drone in dock">
+                <a-tooltip title="是否停靠无人机">
                   <span><RocketOutlined /></span>
-                  <span class="ml10">{{ deviceInfo.dock.basic_osd?.drone_in_dock }}</span>
+                  <span class="ml10">{{ deviceInfo.dock.basic_osd?.drone_in_dock ? '是' : '否' }}</span>
                 </a-tooltip>
               </a-col>
             </a-row>
             <a-row class="p5">
               <a-col span="24">
                 <a-button type="primary" :disabled="dockControlPanelVisible" size="small" @click="setDockControlPanelVisible(true)">
-                  Actions
+                  操作
                 </a-button>
               </a-col>
             </a-row>
@@ -295,24 +295,24 @@
         </div>
         <div class="osd flex-1">
             <a-row>
-              <a-col span="16" :style="!deviceInfo.device || deviceInfo.device?.mode_code === EModeCode.Disconnected ? 'color: red; font-weight: 700;': 'color: rgb(25,190,107)'">
-                {{ !deviceInfo.device ? EModeCode[EModeCode.Disconnected] : EModeCode[deviceInfo.device?.mode_code] }}</a-col>
+              <a-col span="16" :style="!deviceInfo.device || deviceInfo.device?.mode_code === EModeCode.未连接 ? 'color: red; font-weight: 700;': 'color: rgb(25,190,107)'">
+                {{ !deviceInfo.device ? EModeCode[EModeCode.未连接] : EModeCode[deviceInfo.device?.mode_code] }}</a-col>
             </a-row>
             <a-row>
               <a-col span="6">
-                <a-tooltip title="Upward Quality">
+                <a-tooltip title="网络上行质量">
                   <span><SignalFilled /><ArrowUpOutlined style="font-size: 9px; vertical-align: top;" /></span>
                   <span class="ml10">{{ deviceInfo.dock.link_osd?.sdr?.up_quality }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Downward Quality">
+                <a-tooltip title="网络下行质量">
                   <span><SignalFilled /><ArrowDownOutlined style="font-size: 9px; vertical-align: top;" /></span>
                   <span class="ml10">{{ deviceInfo.dock.link_osd?.sdr?.down_quality }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Drone Battery Level">
+                <a-tooltip title="无人机电量">
                   <span><ThunderboltOutlined class="fz14"/></span>
                   <span class="ml10">{{ deviceInfo.device && deviceInfo.device.battery.capacity_percent !== str ? deviceInfo.device?.battery.capacity_percent + ' %' : str }}</span>
                 </a-tooltip>
@@ -320,8 +320,8 @@
               <a-col span="6">
                 <a-tooltip>
                   <template #title>
-                    <p>total: {{ deviceInfo.device?.storage?.total }}</p>
-                    <p>used: {{ deviceInfo.device?.storage?.used  }}</p>
+                    <p>总大小: {{ deviceInfo.device?.storage?.total }}</p>
+                    <p>已使用: {{ deviceInfo.device?.storage?.used  }}</p>
                   </template>
                   <span><FolderOpenOutlined /></span>
                   <span class="ml10" v-if="deviceInfo.device?.storage?.total > 0">
@@ -353,45 +353,45 @@
             </a-row>
             <a-row>
               <a-col span="6">
-                <a-tooltip title="Flight Mode">
+                <a-tooltip title="飞行模式">
                   <span><ControlOutlined class="fz16" /></span>
                   <span class="ml10">{{ deviceInfo.device ? EGear[deviceInfo.device?.gear] : str }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Altitude above sea level">
+                <a-tooltip title="海拔高度">
                   <span>ASL</span>
-                  <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.height === str ? str : deviceInfo.device?.height.toFixed(2) + ' m'}}</span>
+                  <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.height === str ? str : deviceInfo.device?.height.toFixed(2) + ' 米'}}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Altitude above takeoff level">
+                <a-tooltip title="相对于起飞点的高度">
                   <span>ALT</span>
-                  <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.elevation === str ? str : deviceInfo.device?.elevation.toFixed(2) + ' m' }}</span>
+                  <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.elevation === str ? str : deviceInfo.device?.elevation.toFixed(2) + ' 米' }}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Distance to Home Point">
+                <a-tooltip title="到返航点的距离">
                   <span style="border: 1px solid; border-radius: 50%; width: 18px; height: 18px; line-height: 15px; text-align: center;  display: block; float: left;" >H</span>
-                  <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.home_distance === str ? str : deviceInfo.device?.home_distance.toFixed(2) + ' m' }}</span>
+                  <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.home_distance === str ? str : deviceInfo.device?.home_distance.toFixed(2) + ' 米' }}</span>
                 </a-tooltip>
               </a-col>
             </a-row>
             <a-row>
               <a-col span="6">
-                <a-tooltip title="Horizontal Speed">
+                <a-tooltip title="水平速度">
                   <span>H.S</span>
                   <span class="ml10">{{ !deviceInfo.device || deviceInfo.device?.horizontal_speed === str ? str : deviceInfo.device?.horizontal_speed.toFixed(2) + ' m/s'}}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Vertical Speed">
+                <a-tooltip title="垂直速度">
                   <span>V.S</span>
                   <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.vertical_speed === str ? str : deviceInfo.device?.vertical_speed.toFixed(2) + ' m/s'}}</span>
                 </a-tooltip>
               </a-col>
               <a-col span="6">
-                <a-tooltip title="Wind Speed">
+                <a-tooltip title="风速">
                   <span>W.S</span>
                   <span class="ml10">{{ !deviceInfo.device || deviceInfo.device.wind_speed === str ? str : (deviceInfo.device?.wind_speed / 10).toFixed(2) + ' m/s'}}</span>
                 </a-tooltip>
@@ -523,7 +523,7 @@ export default defineComponent({
       } as DockOsd,
       device: {
         gear: -1,
-        mode_code: EModeCode.Disconnected,
+        mode_code: EModeCode.未连接,
         height: str,
         home_distance: str,
         horizontal_speed: str,

@@ -1,10 +1,10 @@
 <template>
   <div class="flex-column flex-justify-start flex-align-center">
-    <div id="player" style="width: 720px; height: 420px; border: 1px solid"></div>
-    <p class="fz24">Live streaming source selection</p>
+    <div id="player" style="width: 720px; height: 490px; border: 1px solid"></div>
+    <p class="fz24">直播源选择</p>
     <div class="flex-row flex-justify-center flex-align-center mt10">
       <template v-if="livePara.liveState && dronePara.isDockLive">
-        <span class="mr10">Lens:</span>
+        <span class="mr10">镜头:</span>
         <a-radio-group v-model:value="dronePara.lensSelected" button-style="solid">
           <a-radio-button v-for="lens in dronePara.lensList" :key="lens" :value="lens">{{lens}}</a-radio-button>
         </a-radio-group>
@@ -12,7 +12,7 @@
       <template v-else>
       <a-select
         style="width:150px"
-        placeholder="Select Drone"
+        placeholder="选择无人机"
         v-model:value="dronePara.droneSelected"
       >
         <a-select-option
@@ -26,7 +26,7 @@
       <a-select
         class="ml10"
         style="width:150px"
-        placeholder="Select Camera"
+        placeholder="选择相机"
         v-model:value="dronePara.cameraSelected"
       >
         <a-select-option
@@ -54,7 +54,7 @@
       <a-select
         class="ml10"
         style="width:150px"
-        placeholder="Select Clarity"
+        placeholder="选择清晰度"
         @select="onClaritySelect"
       >
         <a-select-option
@@ -65,8 +65,8 @@
         >
       </a-select>
     </div>
-    <p class="fz16 mt10">
-      Note: Obtain The Following Parameters From https://console.agora.io
+    <!-- <p class="fz16 mt10">
+      注意：从以下来源获取参数https://console.agora.io
     </p>
     <div class="flex-row flex-justify-center flex-align-center">
       <span class="mr10">AppId:</span>
@@ -83,18 +83,18 @@
         v-model:value="agoraPara.channel"
         placeholder="Channel"
       ></a-input>
-    </div>
+    </div> -->
     <div class="mt20 flex-row flex-justify-center flex-align-center">
-      <a-button v-if="livePara.liveState && dronePara.isDockLive" type="primary" large @click="onSwitch">Switch Lens</a-button>
-      <a-button v-else type="primary" large @click="onStart">Play</a-button>
+      <a-button v-if="livePara.liveState && dronePara.isDockLive" type="primary" large @click="onSwitch">选择镜头</a-button>
+      <a-button v-else type="primary" large @click="onStart">播放</a-button>
       <a-button class="ml20" type="primary" large @click="onStop"
-        >Stop</a-button
+        >停止</a-button
       >
       <a-button class="ml20" type="primary" large @click="onUpdateQuality"
-        >Update Clarity</a-button
+        >更新清晰度</a-button
       >
       <a-button v-if="!livePara.liveState || !dronePara.isDockLive" class="ml20" type="primary" large @click="onRefresh"
-        >Refresh Live Capacity</a-button
+        >刷新直播容量</a-button
       >
     </div>
   </div>
@@ -106,31 +106,32 @@ import { message } from 'ant-design-vue'
 import { onMounted, reactive } from 'vue'
 import { uuidv4 } from '../utils/uuid'
 import { CURRENT_CONFIG as config } from '/@/api/http/config'
-import { changeLivestreamLens, getLiveCapacity, setLivestreamQuality, startLivestream, stopLivestream } from '/@/api/manage'
+import { changeLivestreamLens, getLiveCapacity, setLivestreamQuality, startLivestream, stopLivestream, getAgoraToken } from '/@/api/manage'
 import { getRoot } from '/@/root'
+import { get } from 'http'
 
 const root = getRoot()
 
 const clarityList = [
   {
     value: 0,
-    label: 'Adaptive'
+    label: '自动'
   },
   {
     value: 1,
-    label: 'Smooth'
+    label: '流畅'
   },
   {
     value: 2,
-    label: 'Standard'
+    label: '标准'
   },
   {
     value: 3,
-    label: 'HD'
+    label: '高清'
   },
   {
     value: 4,
-    label: 'Super Clear'
+    label: '超清'
   }
 ]
 
@@ -143,11 +144,19 @@ interface SelectOption {
 let agoraClient = {} as IAgoraRTCClient
 const agoraPara = reactive({
   appid: config.agoraAPPID,
-  token: config.agoraToken,
+  token: '',
   channel: config.agoraChannel,
-  uid: 123456,
+  uid: config.agoraUID,
   stream: {}
 })
+//
+//
+getAgoraToken(agoraPara.channel, agoraPara.uid).then(res => {
+  agoraPara.appid = res.app_id
+  agoraPara.token = res.token
+  agoraPara.channel = res.channel_name
+})
+
 const dronePara = reactive({
   livestreamSource: [],
   droneList: [] as SelectOption[],
@@ -167,6 +176,7 @@ const livePara = reactive({
   videoId: '',
   liveState: false
 })
+
 const nonSwitchable = 'normal'
 const onRefresh = async () => {
   dronePara.droneList = []
@@ -205,11 +215,11 @@ onMounted(() => {
   agoraClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' })
   agoraClient.setClientRole('audience', { level: 2 })
   if (agoraClient.connectionState === 'DISCONNECTED') {
-    agoraClient.join(agoraPara.appid, agoraPara.channel, agoraPara.token)
+    agoraClient.join(agoraPara.appid, agoraPara.channel, agoraPara.token, agoraPara.uid)
   }
   // Subscribe when a remote user publishes a stream
   agoraClient.on('user-joined', async (user: IAgoraRTCRemoteUser) => {
-    message.info('user[' + user.uid + '] join')
+    message.info('用户 [' + user.uid + '] 加入')
   })
   agoraClient.on('user-published', async (user: IAgoraRTCRemoteUser, mediaType: 'audio' | 'video') => {
     await agoraClient.subscribe(user, mediaType)
@@ -223,7 +233,7 @@ onMounted(() => {
   })
   agoraClient.on('user-unpublished', async (user: any) => {
     console.log('unpublish live:', user)
-    message.info('unpublish live')
+    message.info('取消发布直播。')
   })
   agoraClient.on('exception', async (e: any) => {
     console.log(e)
@@ -252,31 +262,31 @@ const onStart = async () => {
     dronePara.cameraSelected == null ||
     dronePara.claritySelected == null
   ) {
-    message.warn('waring: not select live para!!!')
+    message.warn('警告：未选择直播参数！')
     return
   }
   agoraClient.setClientRole('audience', { level: 2 })
   if (agoraClient.connectionState === 'DISCONNECTED') {
-    await agoraClient.join(agoraPara.appid, agoraPara.channel, agoraPara.token)
+    await agoraClient.join(agoraPara.appid, agoraPara.channel, agoraPara.token, agoraPara.uid)
   }
   livePara.videoId =
     dronePara.droneSelected +
     '/' +
     dronePara.cameraSelected + '/' + (dronePara.videoSelected || nonSwitchable + '-0')
-  console.log(agoraPara)
-
-  livePara.url =
-    'channel=' +
-    agoraPara.channel +
-    '&sn=' +
-    dronePara.droneSelected +
-    '&token=' +
-    encodeURIComponent(agoraPara.token) +
-    '&uid=' +
-    agoraPara.uid
+  console.log('live_videoId:', livePara.videoId)
+  // livePara.url =
+  //   'channel=' +
+  //   agoraPara.channel +
+  //   '&sn=' +
+  //   dronePara.droneSelected +
+  //   '&token=' +
+  //   encodeURIComponent(agoraPara.token) +
+  //   '&uid=' +
+  //   agoraPara.uid
 
   startLivestream({
-    url: livePara.url,
+    // url: livePara.url,
+    channel: agoraPara.channel,
     video_id: livePara.videoId,
     url_type: 0,
     video_quality: dronePara.claritySelected
@@ -297,7 +307,7 @@ const onStop = async () => {
     dronePara.cameraSelected == null ||
     dronePara.claritySelected == null
   ) {
-    message.warn('waring: not select live para!!!')
+    message.warn('警告：未选择直播参数！')
     return
   }
   livePara.videoId =
@@ -364,7 +374,7 @@ const onClaritySelect = (val: any) => {
 }
 const onUpdateQuality = () => {
   if (!livePara.liveState) {
-    message.info('Please turn on the livestream first.')
+    message.info('请先开启直播。')
     return
   }
   setLivestreamQuality({
@@ -372,14 +382,14 @@ const onUpdateQuality = () => {
     video_quality: dronePara.claritySelected
   }).then(res => {
     if (res.code === 0) {
-      message.success('Set the clarity to ' + clarityList[dronePara.claritySelected].label)
+      message.success('将清晰度设置为 ' + clarityList[dronePara.claritySelected].label)
     }
   })
 }
 
 const onSwitch = () => {
   if (dronePara.lensSelected === undefined || dronePara.lensSelected === nonSwitchable) {
-    message.info('The ' + nonSwitchable + ' lens cannot be switched, please select the lens to be switched.', 8)
+    message.info(nonSwitchable + '镜头无法切换，请选择要切换的镜头。', 8)
     return
   }
   changeLivestreamLens({
@@ -387,7 +397,7 @@ const onSwitch = () => {
     video_type: dronePara.lensSelected
   }).then(res => {
     if (res.code === 0) {
-      message.success('Switching live camera successfully.')
+      message.success('实时摄像头切换成功。')
     }
   })
 }

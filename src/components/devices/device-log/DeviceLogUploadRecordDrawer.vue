@@ -4,7 +4,7 @@
     placement="right"
     v-model:visible="sVisible"
     @update:visible="onVisibleChange"
-    :width="800">
+    :width="1000">
     <!-- 设备日志上传记录 -->
     <div class="device-log-upload-record-wrap">
       <div class="page-action-row">

@@ -27,7 +27,7 @@
           <a-menu theme="dark" class="flex-column flex-justify-between flex-align-center">
             <a-menu-item>
               <span class="mr10" style="font-size: 16px;"><ExportOutlined /></span>
-              <span @click="logout">Log Out</span>
+              <span @click="logout">注销</span>
             </a-menu-item>
           </a-menu>
         </template>
@@ -61,10 +61,10 @@ interface IOptions {
 const username = ref(localStorage.getItem(ELocalStorageKey.Username))
 const workspaceName = ref('')
 const options = [
-  { key: 0, label: ERouterName.WORKSPACE.charAt(0).toUpperCase() + ERouterName.WORKSPACE.substr(1), path: '/' + ERouterName.WORKSPACE },
-  { key: 1, label: ERouterName.MEMBERS.charAt(0).toUpperCase() + ERouterName.MEMBERS.substr(1), path: '/' + ERouterName.MEMBERS },
-  { key: 2, label: ERouterName.DEVICES.charAt(0).toUpperCase() + ERouterName.DEVICES.substr(1), path: '/' + ERouterName.DEVICES },
-  { key: 3, label: ERouterName.FIRMWARES.charAt(0).toUpperCase() + ERouterName.FIRMWARES.substr(1), path: '/' + ERouterName.FIRMWARES },
+  { key: 0, label: '工作台', path: '/' + ERouterName.WORKSPACE },
+  { key: 1, label: '成员', path: '/' + ERouterName.MEMBERS },
+  { key: 2, label: '设备', path: '/' + ERouterName.DEVICES },
+  { key: 3, label: '固件', path: '/' + ERouterName.FIRMWARES },
 ]
 
 const selected = ref<string>(root.$route.path)

@@ -36,8 +36,8 @@ const routeName = ref<string>('LiveOthers')
 const showLive = ref<boolean>(root.$route.name === ERouterName.LIVING)
 
 const options = [
-  { key: 0, label: 'Agora Live', path: '/' + ERouterName.LIVESTREAM + '/' + ERouterName.LIVING, routeName: 'LiveAgora' },
-  { key: 1, label: 'RTMP/GB28181 Live', path: '/' + ERouterName.LIVESTREAM + '/' + ERouterName.LIVING, routeName: 'LiveOthers' }
+  { key: 0, label: 'Agora直播', path: '/' + ERouterName.LIVESTREAM + '/' + ERouterName.LIVING, routeName: 'LiveAgora' },
+  { key: 1, label: 'RTMP/GB28181直播', path: '/' + ERouterName.LIVESTREAM + '/' + ERouterName.LIVING, routeName: 'LiveOthers' }
 ]
 
 const selectLivestream = (route: string) => {

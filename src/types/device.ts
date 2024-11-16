@@ -450,22 +450,40 @@ export interface DockOsd {
   work_osd: DockWorkOsd
 }
 
+// export enum EModeCode {
+//   Standby,
+//   Preparing,
+//   Ready,
+//   Manual,
+//   Automatic,
+//   Waypoint,
+//   Panoramic,
+//   Active_Track,
+//   ADS_B,
+//   Return_To_Home,
+//   Landing,
+//   Forced_Landing,
+//   Three_Blades_Landing,
+//   Upgrading,
+//   Disconnected,
+// }
+
 export enum EModeCode {
-  Standby,
-  Preparing,
-  Ready,
-  Manual,
-  Automatic,
-  Waypoint,
-  Panoramic,
-  Active_Track,
-  ADS_B,
-  Return_To_Home,
-  Landing,
-  Forced_Landing,
-  Three_Blades_Landing,
-  Upgrading,
-  Disconnected,
+  待机 = 0,
+  准备起飞 = 1,
+  起飞准备完毕 = 2,
+  手动飞行 = 3,
+  自动起飞 = 4,
+  航线飞行 = 5,
+  全景拍照 = 6,
+  智能跟随 = 7,
+  ADS_B躲避 = 8,
+  自动返航 = 9,
+  自动降落 = 10,
+  强制降落 = 11,
+  三桨叶降落 = 12,
+  升级中 = 13,
+  未连接 = 14,
 }
 
 export enum EGear {
@@ -481,13 +499,21 @@ export enum EGear {
   T
 }
 
+// export enum EDockModeCode {
+//   Disconnected = -1,
+//   Idle,
+//   Debugging,
+//   Remote_Debugging,
+//   Upgrading,
+//   Working,
+// }
 export enum EDockModeCode {
-  Disconnected = -1,
-  Idle,
-  Debugging,
-  Remote_Debugging,
-  Upgrading,
-  Working,
+  未连接 = -1,
+  空闲 = 0,
+  现场调试 = 1,
+  远程调试 = 2,
+  固件升级中 = 3,
+  作业中 = 4,
 }
 
 export interface DeviceHms {

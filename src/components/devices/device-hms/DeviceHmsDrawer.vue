@@ -1,18 +1,18 @@
 <template>
   <a-drawer
-    title="Hms Info"
+    title="HMS信息"
     placement="right"
     v-model:visible="sVisible"
     @update:visible="onVisibleChange"
     :destroyOnClose="true"
-    :width="800">
+    :width="1300">
     <div class="flex-row flex-align-center">
       <div style="width: 240px;">
         <a-range-picker
           v-model:value="time"
           format="YYYY-MM-DD"
-          :placeholder="['Start Time', 'End Time']"
-          @change="onTimeChange"/>
+          :placeholder="['开始时间', '结束时间']"
+          @change="onTimeChange" />
       </div>
       <div class="ml5">
         <a-select
@@ -46,7 +46,7 @@
       <div class="ml5">
         <a-input-search
           v-model:value="param.message"
-          placeholder="input search message"
+          placeholder="输入搜索信息"
           style="width: 200px"
           @search="getHms"/>
       </div>
@@ -57,12 +57,12 @@
         <template #time="{ record }">
           <div>{{ record.create_time }}</div>
           <div :style="record.update_time ? '' : record.level === EHmsLevel.CAUTION ? 'color: orange;' :
-            record.level === EHmsLevel.WARN ? 'color: red;' : 'color: #28d445;'">{{ record.update_time ?? 'It is happening...' }}</div>
+            record.level === EHmsLevel.WARN ? 'color: red;' : 'color: #28d445;'">{{ record.update_time ?? '正在发生...' }}</div>
         </template>
         <template #level="{ text }">
           <div class="flex-row flex-align-center">
             <div :class="text === EHmsLevel.CAUTION ? 'caution' : text === EHmsLevel.WARN ? 'warn' : 'notice'" style="width: 10px; height: 10px; border-radius: 50%;"></div>
-            <div style="margin-left: 3px;">{{ EHmsLevel[text] }}</div>
+            <div style="margin-left: 3px;">{{ EHmsLevelView[text] }}</div>
           </div>
         </template>
         <template v-for="col in ['code', 'message']" #[col]="{ text }" :key="col">
@@ -72,7 +72,7 @@
         </template>
         <template #domain="{text}">
           <a-tooltip :title="EDeviceTypeName[text]">
-              <div >{{ EDeviceTypeName[text] }}</div>
+              <div >{{ EDeviceTypeNameView[text] }}</div>
           </a-tooltip>
         </template>
       </a-table>
@@ -88,7 +88,7 @@ import moment, { Moment } from 'moment'
 import { ColumnProps, TableState } from 'ant-design-vue/lib/table/interface'
 import { Device, DeviceHms } from '/@/types/device'
 import { IPage } from '/@/api/http/type'
-import { EDeviceTypeName, EHmsLevel, ELocalStorageKey } from '/@/types'
+import { EDeviceTypeName, EHmsLevel, ELocalStorageKey, EDeviceTypeNameView, EHmsLevelView } from '/@/types'
 
 const props = defineProps<{
   visible: boolean,
@@ -120,12 +120,12 @@ function setVisible (v: boolean, e?: Event) {
 const loading = ref(false)
 
 const hmsColumns: ColumnProps[] = [
-  { title: 'Alarm Begin | End Time', dataIndex: 'create_time', width: '25%', className: 'titleStyle', slots: { customRender: 'time' } },
-  { title: 'Level', dataIndex: 'level', width: '120px', className: 'titleStyle', slots: { customRender: 'level' } },
-  { title: 'Device', dataIndex: 'domain', width: '12%', className: 'titleStyle', slots: { customRender: 'domain' } },
-  { title: 'Error Code', dataIndex: 'key', width: '20%', className: 'titleStyle', ellipsis: true, slots: { customRender: 'code' } },
-  { title: 'Hms Message', dataIndex: 'message_en', className: 'titleStyle', ellipsis: true, slots: { customRender: 'message' } },
-  { title: 'Hms Message', dataIndex: 'message_zh', className: 'titleStyle', ellipsis: true, slots: { customRender: 'message' } },
+  { title: '警报开始|结束时间', dataIndex: 'create_time', width: '200px', className: 'titleStyle', slots: { customRender: 'time' } },
+  { title: '级别', dataIndex: 'level', width: '120px', className: 'titleStyle', slots: { customRender: 'level' } },
+  { title: '设备', dataIndex: 'domain', width: '120px', className: 'titleStyle', slots: { customRender: 'domain' } },
+  { title: '错误码', dataIndex: 'key', width: '280px', className: 'titleStyle', ellipsis: true, slots: { customRender: 'code' } },
+  // { title: 'Hms Message', dataIndex: 'message_en', className: 'titleStyle', ellipsis: true, slots: { customRender: 'message' } },
+  { title: 'HMS信息', dataIndex: 'message_zh', className: 'titleStyle', ellipsis: true, slots: { customRender: 'message' } },
 ]
 
 interface DeviceHmsData {
@@ -187,29 +187,29 @@ const param = reactive<HmsQueryBody>({
 
 const levels = [
   {
-    label: 'All',
+    label: '全部',
     value: ''
   }, {
-    label: EHmsLevel[0],
+    label: EHmsLevelView[0],
     value: EHmsLevel.NOTICE
   }, {
-    label: EHmsLevel[1],
+    label: EHmsLevelView[1],
     value: EHmsLevel.CAUTION
   }, {
-    label: EHmsLevel[2],
+    label: EHmsLevelView[2],
     value: EHmsLevel.WARN
   }
 ]
 
 const deviceTypes = [
   {
-    label: 'All',
+    label: '全部',
     value: -1
   }, {
-    label: EDeviceTypeName[EDeviceTypeName.Aircraft],
+    label: EDeviceTypeNameView[EDeviceTypeNameView.无人机],
     value: EDeviceTypeName.Aircraft
   }, {
-    label: EDeviceTypeName[EDeviceTypeName.Dock],
+    label: EDeviceTypeNameView[EDeviceTypeNameView.机场],
     value: EDeviceTypeName.Dock
   }
 ]

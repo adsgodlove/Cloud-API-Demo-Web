@@ -3,14 +3,14 @@
     <div>
       <a-row>
         <a-col :span="1"></a-col>
-        <a-col :span="11">My Username</a-col>
+        <a-col :span="11">当前用户</a-col>
         <a-col :span="11" align="right" style="font-weight: 700">{{ username }}</a-col>
         <a-col :span="1"></a-col>
       </a-row>
     </div>
     <div class="scrollbar" :style="{ height: scorllHeight + 'px'}">
       <a-collapse :bordered="false" expandIconPosition="right" accordion style="background: #232323;">
-        <a-collapse-panel :key="EDeviceTypeName.Dock" header="Dock" style="border-bottom: 1px solid #4f4f4f;">
+        <a-collapse-panel :key="EDeviceTypeName.Dock" header="机场" style="border-bottom: 1px solid #4f4f4f;">
           <div v-if="onlineDocks.data.length === 0" style="height: 150px; color: white;">
             <a-empty :image="noData" :image-style="{ height: '60px' }" />
           </div>
@@ -23,11 +23,12 @@
                       <div class="text-hidden" style="max-width: 200px;">{{ dock.gateway.callsign }} - {{ dock.callsign ?? 'No Drone' }}</div>
                     </a-tooltip>
                   </div>
+                  <!-- 机场 -->
                   <div class="mt5 flex-align-center flex-row flex-justify-between" style="background: #595959;">
                     <div class="flex-align-center flex-row">
                       <span class="ml5 mr5"><RobotOutlined /></span>
-                      <div class="font-bold text-hidden" style="max-width: 80px;" :style="dockInfo[dock.gateway.sn] && dockInfo[dock.gateway.sn].basic_osd?.mode_code !== EDockModeCode.Disconnected ? 'color: #00ee8b' :  'color: red;'">
-                        {{ dockInfo[dock.gateway.sn] ? EDockModeCode[dockInfo[dock.gateway.sn].basic_osd?.mode_code] : EDockModeCode[EDockModeCode.Disconnected] }}
+                      <div class="font-bold text-hidden" style="max-width: 80px;" :style="dockInfo[dock.gateway.sn] && dockInfo[dock.gateway.sn].basic_osd?.mode_code !== EDockModeCode.未连接 ? 'color: #00ee8b' :  'color: red;'">
+                        {{ dockInfo[dock.gateway.sn] ? EDockModeCode[dockInfo[dock.gateway.sn].basic_osd?.mode_code] : EDockModeCode[EDockModeCode.未连接] }}
                       </div>
                     </div>
                     <div class="mr5 flex-align-center flex-row" style="width: 85px; margin-right: 0; height: 18px;">
@@ -74,11 +75,12 @@
                       <div v-else class="width-100" style="height: 90%; background: rgba(0, 0, 0, 0.35)"></div>
                     </div>
                   </div>
+                  <!-- 无人机 -->
                   <div class="mt5 flex-align-center flex-row flex-justify-between" style="background: #595959;">
                     <div class="flex-row">
                       <span class="ml5 mr5"><RocketOutlined /></span>
-                      <div class="font-bold text-hidden" style="max-width: 80px" :style="deviceInfo[dock.sn] && deviceInfo[dock.sn].mode_code !== EModeCode.Disconnected ? 'color: #00ee8b' :  'color: red;'">
-                        {{ deviceInfo[dock.sn] ? EModeCode[deviceInfo[dock.sn].mode_code] : EModeCode[EModeCode.Disconnected] }}
+                      <div class="font-bold text-hidden" style="max-width: 80px" :style="deviceInfo[dock.sn] && deviceInfo[dock.sn].mode_code !== EModeCode.未连接 ? 'color: #00ee8b' :  'color: red;'">
+                        {{ deviceInfo[dock.sn] ? EModeCode[deviceInfo[dock.sn].mode_code] : EModeCode[EModeCode.未连接] }}
                       </div>
                     </div>
                     <div class="mr5 flex-align-center flex-row" style="width: 85px; margin-right: 0; height: 18px;">
@@ -126,7 +128,7 @@
                   </div>
                 </div>
                 <div style="float: right; background: #595959; height: 100%; width: 40px;" class="flex-row flex-justify-center flex-align-center">
-                  <div class="fz16" @click="switchVisible($event, dock, true, dockInfo[dock.gateway.sn] && dockInfo[dock.gateway.sn].basic_osd?.mode_code !== EDockModeCode.Disconnected)">
+                  <div class="fz16" @click="switchVisible($event, dock, true, dockInfo[dock.gateway.sn] && dockInfo[dock.gateway.sn].basic_osd?.mode_code !== EDockModeCode.未连接)">
                     <a v-if="osdVisible.gateway_sn === dock.gateway.sn && osdVisible.visible"><EyeOutlined /></a>
                     <a v-else><EyeInvisibleOutlined /></a>
                   </div>
@@ -137,7 +139,7 @@
         </a-collapse-panel>
       </a-collapse>
       <a-collapse :bordered="false" expandIconPosition="right" accordion style="background: #232323;">
-        <a-collapse-panel :key="EDeviceTypeName.Aircraft" header="Online Devices" style="border-bottom: 1px solid #4f4f4f;">
+        <a-collapse-panel :key="EDeviceTypeName.Aircraft" header="在线设备" style="border-bottom: 1px solid #4f4f4f;">
           <div v-if="onlineDevices.data.length === 0" style="height: 150px; color: white;">
             <a-empty :image="noData" :image-style="{ height: '60px' }" />
           </div>
@@ -199,6 +201,7 @@ import { useMyStore } from '/@/store'
 import { getDeviceTopo, getUnreadDeviceHms, updateDeviceHms } from '/@/api/manage'
 import { RocketOutlined, EyeInvisibleOutlined, EyeOutlined, RobotOutlined, DoubleRightOutlined } from '@ant-design/icons-vue'
 import { EHmsLevel } from '/@/types/enums'
+import { getApp, getRoot } from '/@/root'
 
 const store = useMyStore()
 const username = ref(localStorage.getItem(ELocalStorageKey.Username))

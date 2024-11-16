@@ -46,10 +46,10 @@
         </a-button>
         <a-modal v-model:visible="exitVisible" width="300px" :closable="false">
           <template #footer>
-            <a-button type="text" style="width: 48%; float: left;" @click="onBack">Cancel</a-button>
-            <a-button type="text" style="width: 48%;" @click="onExit">Exit</a-button>
+            <a-button type="text" style="width: 48%; float: left;" @click="onBack">取消</a-button>
+            <a-button type="text" style="width: 48%;" @click="onExit">退出</a-button>
           </template>
-          <p>Data will not be synchronized between DJI Pilot and this server after exiting.</p>
+          <p>退出后，数据将不会在 DJI Pilot 和此服务器之间同步。</p>
         </a-modal>
       </div>
     </a-layout-sider>
@@ -69,7 +69,7 @@
         </a-row>
         <a-row style="border-bottom: 1px solid #f4f8f9; height: 45px;" align="middle" v-if="device.data.online_status && device.data.sn">
           <a-col :span="1"></a-col>
-          <a-col :span="9">Aircraft Sn</a-col>
+          <a-col :span="9">无人机序列号</a-col>
           <a-col :span="13" class="flex-align-end flex-column" >
             <span style="color: #737373">{{ device.data.sn }}</span>
           </a-col>

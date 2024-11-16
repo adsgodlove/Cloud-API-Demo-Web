@@ -3,7 +3,7 @@
     <div style="height: 50px; line-height: 50px; border-bottom: 1px solid #4f4f4f; font-weight: 450;">
       <a-row>
         <a-col :span="1"></a-col>
-        <a-col :span="22">Annotations</a-col>
+        <a-col :span="22">注释</a-col>
         <a-col :span="1"></a-col>
       </a-row>
     </div>
@@ -18,7 +18,7 @@
     />
     </div>
     <a-drawer
-      title="Map Element"
+      title="地图元素"
       placement="right"
       :closable="true"
       v-model:visible="visible"
@@ -29,11 +29,11 @@
     >
       <div class="drawer-element-content">
         <div class="name element-item">
-          <span class="title">Name:</span>
+          <span class="title">姓名:</span>
           <a-input
             v-model:value="layerState.layerName"
             style="width:120px"
-            placeholder="element name"
+            placeholder="元素名称"
             @change="changeLayer"
           />
         </div>
@@ -41,11 +41,11 @@
           class="longitude element-item"
           v-if="layerState.currentType === geoType.Point"
         >
-          <span class="title">Longitude:</span>
+          <span class="title">经度:</span>
           <a-input
             v-model:value="layerState.longitude"
             style="width:120px"
-            placeholder="longitude"
+            placeholder="经度"
             @change="changeLayer"
           />
         </div>
@@ -53,11 +53,11 @@
           class="latitude element-item"
           v-if="layerState.currentType === geoType.Point"
         >
-          <span class="title">Latitude:</span>
+          <span class="title">纬度:</span>
           <a-input
             v-model:value="layerState.latitude"
             style="width:120px"
-            placeholder="latitude"
+            placeholder="纬度"
             @change="changeLayer"
           />
         </div>

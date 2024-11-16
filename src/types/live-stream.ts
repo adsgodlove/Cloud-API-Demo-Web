@@ -73,16 +73,21 @@ export enum CameraType {
     ZOOM = 'zoom',
     IR = 'ir'
 }
+// export enum CameraType {
+//     WIDE = 'wide',
+//     ZOOM = 'zoom',
+//     IR = 'ir'
+// }
 
 export const CameraTypeOptions = [
-  { label: CameraType.WIDE, value: CameraType.WIDE },
-  { label: CameraType.ZOOM, value: CameraType.ZOOM },
-  { label: CameraType.IR, value: CameraType.IR },
+  { label: '广角', value: CameraType.WIDE },
+  { label: '变焦', value: CameraType.ZOOM },
+  { label: '红外', value: CameraType.IR },
 ]
 
 export const ZoomCameraTypeOptions = [
-  { label: CameraType.ZOOM, value: CameraType.ZOOM },
-  { label: CameraType.IR, value: CameraType.IR },
+  { label: '变焦', value: CameraType.ZOOM },
+  { label: '红外', value: CameraType.IR },
 ]
 
 export interface VideoListItem {

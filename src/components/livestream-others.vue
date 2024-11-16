@@ -8,7 +8,7 @@
       autoplay
       class="mt20"
     ></video>
-    <p class="fz24">Live streaming source selection</p>
+    <p class="fz24">直播源选择</p>
 
     <div class="flex-row flex-justify-center flex-align-center mt10">
       <template v-if="liveState && isDockLive">
@@ -20,7 +20,7 @@
       <template v-else>
       <a-select
         style="width: 150px"
-        placeholder="Select Live Type"
+        placeholder="选择直播类型"
         @select="onLiveTypeSelect"
         v-model:value="livetypeSelected"
       >
@@ -35,7 +35,7 @@
       <a-select
         class="ml10"
         style="width:150px"
-        placeholder="Select Drone"
+        placeholder="选择无人机"
         v-model:value="droneSelected"
       >
         <a-select-option
@@ -49,7 +49,7 @@
       <a-select
         class="ml10"
         style="width:150px"
-        placeholder="Select Camera"
+        placeholder="选择相机"
         v-model:value="cameraSelected"
       >
         <a-select-option
@@ -78,7 +78,7 @@
       <a-select
         class="ml10"
         style="width:150px"
-        placeholder="Select Clarity"
+        placeholder="选择清晰度"
         @select="onClaritySelect"
         v-model:value="claritySelected"
       >
@@ -100,15 +100,15 @@
     </div>
     <div class="mt10 flex-row flex-justify-center flex-align-center">
       <a-button v-if="liveState && isDockLive" type="primary" large @click="onSwitch">Switch Lens</a-button>
-      <a-button v-else type="primary" large @click="onStart">Play</a-button>
+      <a-button v-else type="primary" large @click="onStart">播放</a-button>
       <a-button class="ml20" type="primary" large @click="onStop"
-        >Stop</a-button
+        >停止</a-button
       >
       <a-button class="ml20" type="primary" large @click="onUpdateQuality"
-        >Update Clarity</a-button
+        >更新清晰度</a-button
       >
       <a-button v-if="!liveState || !isDockLive" class="ml20" type="primary" large @click="onRefresh"
-        >Refresh Live Capacity</a-button
+        >刷新直播容量</a-button
       >
     </div>
   </div>
@@ -152,23 +152,23 @@ const liveTypeList: SelectOption[] = [
 const clarityList: SelectOption[] = [
   {
     value: 0,
-    label: 'Adaptive'
+    label: '自动'
   },
   {
     value: 1,
-    label: 'Smooth'
+    label: '流畅'
   },
   {
     value: 2,
-    label: 'Standard'
+    label: '标准'
   },
   {
     value: 3,
-    label: 'HD'
+    label: '高清'
   },
   {
     value: 4,
-    label: 'Super Clear'
+    label: '超清'
   }
 ]
 
@@ -267,6 +267,7 @@ const onStart = async () => {
       break
     }
     case 4: {
+      // liveURL = 'http://192.168.1.1:8080/rtc/v1/whip?app=live&stream=livestream'
       break
     }
     default:

@@ -1,10 +1,10 @@
 <template>
   <div class="drone-control-wrapper">
-    <div class="drone-control-header">Drone Flight Control</div>
+    <div class="drone-control-header">无人机飞行控制</div>
     <div class="drone-control-box">
       <div class="box">
         <div class="row">
-          <div class="drone-control"><Button :ghost="!flightController" size="small"  @click="onClickFightControl">{{ flightController ? 'Exit Remote Control' : 'Enter Remote Control'}}</Button></div>
+          <div class="drone-control"><Button :ghost="!flightController" size="small"  @click="onClickFightControl">{{ flightController ? '退出远程控制' : '进入远程控制'}}</Button></div>
         </div>
         <div class="row">
           <div class="drone-control-direction">
@@ -35,7 +35,7 @@
             </Button>
           </div>
           <Button type="primary" size="small" danger ghost @click="handleEmergencyStop" >
-            <template #icon><PauseCircleOutlined/></template><span>Break</span>
+            <template #icon><PauseCircleOutlined/></template><span>暂停</span>
           </Button>
         </div>
         <div class="row">
@@ -62,11 +62,11 @@
               </div>
             </template>
             <Button size="small" ghost @click="onShowFlyToPopover" >
-              <span>Fly to</span>
+              <span>飞往</span>
             </Button>
           </DroneControlPopover>
           <Button size="small" ghost @click="onStopFlyToPoint" >
-            <span>Stop Fly to</span>
+            <span>停止飞往</span>
           </Button>
           <DroneControlPopover
             :visible="takeoffToPointPopoverData.visible"
@@ -152,10 +152,10 @@
             </div>
             <div>
               <Button size="small" ghost @click="openLivestreamAgora" >
-                <span>Agora Live</span>
+                <span>Agora直播</span>
               </Button>
               <Button size="small" ghost @click="openLivestreamOthers" >
-                <span>RTMP/GB28181 Live</span>
+                <span>RTMP/GB28181直播</span>
               </Button>
             </div>
           </DroneControlPopover>
@@ -165,7 +165,7 @@
       <div class="row">
         <Select v-model:value="payloadSelectInfo.value" style="width: 110px; marginRight: 5px" :options="payloadSelectInfo.options" @change="handlePayloadChange"/>
         <div class="drone-control">
-          <Button type="primary" size="small" @click="onAuthPayload">Payload Control</Button>
+          <Button type="primary" size="small" @click="onAuthPayload">负载控制</Button>
         </div>
       </div>
       <div class="row">
@@ -188,24 +188,24 @@
             </div>
           </template>
           <Button size="small" ghost @click="onShowGimbalResetPopover">
-            <span>Gimbal Reset</span>
+            <span>重置云台</span>
           </Button>
         </DroneControlPopover>
         <Button size="small" ghost @click="onSwitchCameraMode">
-          <span>Camera Mode Switch</span>
+          <span>切换相机模式</span>
         </Button>
       </div>
       <div class="row">
         <Button size="small" ghost @click="onStartCameraRecording">
-          <span>Start Recording</span>
+          <span>开始录制</span>
         </Button>
         <Button size="small" ghost @click="onStopCameraRecording">
-          <span>Stop Recording</span>
+          <span>停止录制</span>
         </Button>
       </div>
       <div class="row">
         <Button size="small" ghost  @click="onTakeCameraPhoto">
-          <span>Take Photo</span>
+          <span>拍照</span>
         </Button>
         <DroneControlPopover
           :visible="zoomFactorPopoverData.visible"
@@ -230,7 +230,7 @@
             </div>
           </template>
           <Button size="small" ghost @click="($event) => onShowZoomFactorPopover()">
-            <span class="word" @click=";">Zoom</span>
+            <span class="word" @click=";">变焦</span>
           </Button>
         </DroneControlPopover>
         <DroneControlPopover
@@ -238,11 +238,13 @@
             :loading="cameraAimPopoverData.loading"
             @confirm="($event) => onCameraAimConfirm(true)"
             @cancel="($event) =>onCameraAimConfirm(false)"
+            okText="确认"
+            cancelText="取消"
           >
             <template #formContent>
               <div class="form-content">
                 <div>
-                  <span class="form-label">camera type:</span>
+                  <span class="form-label">相机类型:</span>
                   <a-select
                     v-model:value="cameraAimPopoverData.cameraType"
                     style="width: 120px"
@@ -250,7 +252,7 @@
                   ></a-select>
                 </div>
                 <div>
-                  <span class="form-label">locked:</span>
+                  <span class="form-label">锁定:</span>
                   <a-switch v-model:checked="cameraAimPopoverData.locked"/>
                 </div>
                 <div>

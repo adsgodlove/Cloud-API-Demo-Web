@@ -14,9 +14,9 @@ export const TaskTypeMap = {
 }
 
 export const TaskTypeOptions = [
-  { value: TaskType.Immediate, label: TaskTypeMap[TaskType.Immediate] },
-  { value: TaskType.Timed, label: TaskTypeMap[TaskType.Timed] },
-  { value: TaskType.Condition, label: TaskTypeMap[TaskType.Condition] },
+  { value: TaskType.Immediate, label: '立即' },
+  { value: TaskType.Timed, label: '定时' },
+  { value: TaskType.Condition, label: '条件' },
 ]
 
 // 失控动作
@@ -27,9 +27,9 @@ export enum OutOfControlAction {
 }
 
 export const OutOfControlActionMap = {
-  [OutOfControlAction.ReturnToHome]: 'Return to Home',
-  [OutOfControlAction.Hover]: 'Hover',
-  [OutOfControlAction.Land]: 'Land',
+  [OutOfControlAction.ReturnToHome]: '返航',
+  [OutOfControlAction.Hover]: '悬停',
+  [OutOfControlAction.Land]: '降落',
 }
 
 export const OutOfControlActionOptions = [
@@ -49,13 +49,12 @@ export enum TaskStatus {
 }
 
 export const TaskStatusMap = {
-  [TaskStatus.Wait]: 'To be performed',
-  [TaskStatus.Carrying]: 'In progress',
-  [TaskStatus.Success]: 'Task completed',
-  [TaskStatus.CanCel]: 'Task canceled',
-  [TaskStatus.Fail]: 'Task failed',
-  [TaskStatus.Paused]: 'Paused',
-
+  [TaskStatus.Wait]: '待执行',
+  [TaskStatus.Carrying]: '进行中',
+  [TaskStatus.Success]: '任务完成',
+  [TaskStatus.CanCel]: '任务取消',
+  [TaskStatus.Fail]: '任务失败',
+  [TaskStatus.Paused]: '暂停',
 }
 
 export const TaskStatusColor = {
@@ -117,10 +116,10 @@ export enum MediaStatus { // 媒体上传进度
 }
 
 export const MediaStatusMap = {
-  [MediaStatus.ToUpload]: 'Waiting to upload',
-  [MediaStatus.Uploading]: 'Uploading…',
-  [MediaStatus.Success]: 'Uploaded',
-  [MediaStatus.Empty]: 'No media files',
+  [MediaStatus.ToUpload]: '等待上传',
+  [MediaStatus.Uploading]: '正在上传…',
+  [MediaStatus.Success]: '上传完成',
+  [MediaStatus.Empty]: '没有媒体文件',
 }
 
 export const MediaStatusColorMap = {

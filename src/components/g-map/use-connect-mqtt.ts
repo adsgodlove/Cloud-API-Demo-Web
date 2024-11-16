@@ -38,6 +38,7 @@ export function useConnectMqtt () {
       const result = await postDrc({})
       if (result?.code === 0) {
         const { address, client_id, username, password, expire_time } = result.data
+        console.log("mqtt信息：", result.data)
         // @TODO: 校验 expire_time
         mqttState.value = new UranusMqtt(address, {
           clientId: client_id,

@@ -2,7 +2,7 @@
   <div class="flight-area-sync-panel p10 flex-row flex-align-center" >
     <RobotFilled class="fz30" twoToneColor="red" fill="#00ff00"/>
     <div class="ml20 mr10 flex-column" @click="switchPanel">
-      <div class="fz18">Sync Across Devices</div>
+      <div class="fz18">设备间同步</div>
       <div v-if="syncDevicesCount > 0"><a-spin /> Syncing to {{ syncDevicesCount }} devices</div>
     </div>
     <RightOutlined class="fz18" @click="switchPanel"/>

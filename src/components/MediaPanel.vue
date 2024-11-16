@@ -1,5 +1,5 @@
 <template>
-  <div class="header">Media Files</div>
+  <div class="header">媒体文件</div>
   <a-spin :spinning="loading" :delay="1000" tip="downloading" size="large">
     <div class="media-panel-wrapper">
       <a-table class="media-table" :columns="columns" :data-source="mediaData.data" row-key="fingerprint"
@@ -40,13 +40,13 @@ const loading = ref(false)
 
 const columns = [
   {
-    title: 'File Name',
+    title: '文件名称',
     dataIndex: 'file_name',
     ellipsis: true,
     slots: { customRender: 'name' }
   },
   {
-    title: 'File Path',
+    title: '文件路径',
     dataIndex: 'file_path',
     ellipsis: true,
     slots: { customRender: 'path' }
@@ -56,24 +56,24 @@ const columns = [
   //   dataIndex: 'size',
   // },
   {
-    title: 'Drone',
+    title: '无人机',
     dataIndex: 'drone'
   },
   {
-    title: 'Payload Type',
+    title: '负载类型',
     dataIndex: 'payload'
   },
   {
-    title: 'Original',
+    title: '原始信息',
     dataIndex: 'is_original',
     slots: { customRender: 'original' }
   },
   {
-    title: 'Created',
+    title: '创建时间',
     dataIndex: 'create_time'
   },
   {
-    title: 'Action',
+    title: '操作',
     slots: { customRender: 'action' }
   }
 ]

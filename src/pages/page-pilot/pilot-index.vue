@@ -4,7 +4,7 @@
       style="width: 17vw; height: 10vw; margin-bottom: 50px"
       :src="djiLogo"
     />
-    <p class="logo fz35 pb50">Pilot Cloud API Demo</p>
+    <p class="logo fz35 pb50">Pilot Cloud API</p>
     <a-form
       layout="inline"
       :model="formState"

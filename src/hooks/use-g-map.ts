@@ -1,6 +1,7 @@
 import AMapLoader from '@amap/amap-jsapi-loader'
 import { App, reactive } from 'vue'
 import { AMapConfig } from '/@/constants/index'
+import { CURRENT_CONFIG as config } from '/@/api/http/config'
 
 export function useGMapManage () {
   const state = reactive({
@@ -15,7 +16,7 @@ export function useGMapManage () {
     }).then((AMap) => {
       state.aMap = AMap
       state.map = new AMap.Map(container, {
-        center: [113.943225499, 22.577673716],
+        center: [config.lng, config.lat],
         zoom: 20
       })
       state.mouseTool = new AMap.MouseTool(state.map)

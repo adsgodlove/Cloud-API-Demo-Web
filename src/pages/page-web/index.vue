@@ -5,7 +5,7 @@
       style="width: 17vw; height: 10vw; margin-bottom: 50px"
       :src="djiLogo"
     />
-    <p class="fz35 pb50" style="color: #2d8cf0">Cloud API Demo</p>
+    <p class="fz35 pb50" style="color: #2d8cf0">飞控管理平台(v0.1)</p>
     <a-form
       layout="inline"
       :model="formState"
@@ -37,7 +37,7 @@
           :disabled="loginBtnDisabled"
           @click="onSubmit"
         >
-          Login
+          登陆
         </a-button>
       </a-form-item>
     </a-form>

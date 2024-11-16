@@ -1,16 +1,21 @@
 <template>
-  <div class="demo-app">
-    <router-view />
-    <!-- <div class="map-wrapper">
-      <GMap/>
-    </div> -->
-  </div>
+  <a-config-provider :locale="zhCN">
+    <div class="demo-app">
+      <router-view />
+      <!-- <div class="map-wrapper">
+        <GMap/>
+      </div> -->
+    </div>
+  </a-config-provider>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { useMyStore } from './store'
 import GMap from '/@/components/GMap.vue'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import 'dayjs/locale/zh-cn'
+import 'moment/dist/locale/zh-cn'
 
 export default defineComponent({
   name: 'App',
@@ -18,7 +23,7 @@ export default defineComponent({
 
   setup () {
     const store = useMyStore()
-    return {}
+    return { zhCN }
   }
 })
 </script>

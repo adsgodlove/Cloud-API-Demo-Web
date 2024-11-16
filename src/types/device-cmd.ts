@@ -42,17 +42,17 @@ export interface DeviceCmdItem{
 }
 export const noDebugCmdList: DeviceCmdItem[] = [
   {
-    label: 'Return Home',
+    label: '返航',
     status: '--',
-    operateText: 'Return Home',
+    operateText: '返航',
     cmdKey: DeviceCmd.ReturnHome,
     func: 'returnHome',
     loading: false,
   },
   {
-    label: 'Return Home Cancel',
+    label: '取消返航',
     status: '--',
-    operateText: 'Return Home Cancel',
+    operateText: '取消返航',
     cmdKey: DeviceCmd.ReturnHomeCancel,
     func: 'returnHomeCancel',
     loading: false,

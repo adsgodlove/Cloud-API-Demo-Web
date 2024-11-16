@@ -137,8 +137,20 @@ export enum EDeviceTypeName {
     Dock = 3,
 }
 
+export enum EDeviceTypeNameView {
+    无人机 = 0,
+    网络 = 2,
+    机场 = 3,
+}
+
 export enum EHmsLevel {
     NOTICE,
     CAUTION,
     WARN,
+}
+
+export enum EHmsLevelView {
+    提示 = 0,
+    注意 = 1,
+    警告 = 2,
 }
